@@ -37,6 +37,18 @@ public class Ejemplo3TiposDatos {
 		boolean esNoMuerto = true;
 		//puntos magia
 		int pMagia = 0;
+		//nivel Personaje
+		int nivel =1;
+		
+		
+		//Subida de nivel;
+		nivel= nivel+1;
+		//Igual a la anterior
+		System.out.println(nivel++);
+		//Si ponemos el operador ++ antes de la variable primero se incrementa
+		//el valor y luego ejecuta el resto de operadores/instrucciones
+		System.out.println(++nivel);
+			
 		
 		//Incremento de vida por subida de nivel
 		pVida = pVida +10;
@@ -45,7 +57,10 @@ public class Ejemplo3TiposDatos {
 		
 		
 		
-		System.out.println();
+		
+		
+		
+	
 		
 		
 		
