@@ -13,7 +13,9 @@ public class Ejemplo1Inicial {
 		
 		//Definicion de variables
 		//Varible de texto que almacena el nombre del lenguaje de programacion
-		String lengProg = new String();
+		String lengProg = "";
+		int edad=23;
+		float nota=7.5f;
 		
 		//Asignamos el texto Java a la variable
 		lengProg = "Java";
