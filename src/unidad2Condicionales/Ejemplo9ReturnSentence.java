@@ -1,4 +1,4 @@
-package unidad2;
+package unidad2Condicionales;
 
 public class Ejemplo9ReturnSentence {
 

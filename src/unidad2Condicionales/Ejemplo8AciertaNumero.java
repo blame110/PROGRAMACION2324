@@ -1,4 +1,4 @@
-package unidad2;
+package unidad2Condicionales;
 
 import java.util.Random;
 
