@@ -6,14 +6,16 @@ public class Ejemplo8ContarVocales {
 		// TODO Auto-generated method stub
 
 		// variables
-		String texto = " ñalskedjfñ iasdñUIOflkjañsdfklj oañsdj fñajds f";
+		String texto = "BIENVENIDOS A LA CALLE RUISEÑOR ñalskedjfñ iasdñUIOflkjañsdfklj oañsdj fñajds f";
 		int numVocales = 0;
 
 		// Para recorrer todos los caracteres del texto
-		// utilizamos el indice i que va desde 0 hasta la posicion
+		// utilizamos el indice i que va desde 0 hasta la
+		// posicion
 		// del ultimo caracter, que es length() -1
 		for (int i = 0; i < texto.length(); i++) {
-			// Convertimos de mayusculas a minusculas el caracter actual
+			// Convertimos de mayusculas a minusculas el caracter
+			// actual
 			char letra = Character.toLowerCase(texto.charAt(i));
 
 			// Si cumple esta condicion implica que es una vocal
