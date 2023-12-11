@@ -2,7 +2,16 @@ package unidad3;
 
 public class Calculadora {
 
+	// Si el modificador de una variable es public se
+	// puede
+	// acceder desde cualquier parte
 	public final double PI = 3.14159;
+
+	// Si el modificador de acceso es private implica
+	// que
+	// solo se puede
+	// utilizar dentro de la clase
+	private final double PLCK = 2323.2323;
 
 	/**
 	 * Funcion que recibe dos números y los suma
@@ -11,7 +20,8 @@ public class Calculadora {
 	 * @param y
 	 * 
 	 *          Para definir una funcion se sigue la
-	 *          siguiente sintaxis: public <tipo_devolver>
+	 *          siguiente sintaxis: public
+	 *          <tipo_devolver>
 	 *          nombre_funcion(<param1>,<param2>,...) {
 	 *          codigo }
 	 * 
@@ -20,9 +30,52 @@ public class Calculadora {
 	public int suma(int x, int y) {
 		// Hago los calculos
 		int suma = x + y;
-		// Con return devuelvo la suma de los dos numeros
+
+		// Con return devuelvo la suma de los dos
+		// numeros
 		// que me pasan como parametros
 		return suma;
+	}
+
+	/**
+	 * Funcion factorial que recibe un numero y
+	 * devuelve la multiplicacion desde 1 hasta dicho
+	 * numero por ejemplo si num es 3 devolvera 1*2*3
+	 * es decir 6
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public static long factorial(int num) {
+		long factorial = 1;
+
+		// Vamos multiplicando por i y guardando las
+		// multiplicaciones en factorial
+		for (int i = 1; i <= num; i++) {
+			factorial = factorial * i;
+		}
+
+		// Devolvemos el valor resultante
+		return factorial;
+	}
+
+	/**
+	 * 6!=6*5*4*3*2*1=6*5! 5!=5*4*3*2*1=5*4! 4!=4*3*2*1
+	 * 3!=3*2*1 !2=2*1 !1=1
+	 * 
+	 * 
+	 * n!= n*(n-1)!
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public static long factorialR(int num) {
+		long factorial = 1;
+
+		if (num == 1 || num == 0)
+			return num;
+
+		return num * factorialR(num - 1);
 	}
 
 	/**
@@ -30,12 +83,13 @@ public class Calculadora {
 	 * 
 	 * @param x dividendo
 	 * @param y divisor
-	 * @return -1 si el divisor es 0 o el resultado de la
-	 *         division
+	 * @return -1 si el divisor es 0 o el resultado de
+	 *         la division
 	 */
 	public static int dividir(int x, int y) {
 		// return (y == 0 ? -1 : x / y);
-		// Si el divisor es 0 sale infinito, devolvemos error
+		// Si el divisor es 0 sale infinito, devolvemos
+		// error
 		System.out.println("Trabajo con enteros");
 		if (y == 0)
 			return -1;
@@ -52,7 +106,8 @@ public class Calculadora {
 	 */
 	public static float dividir(float x, float y) {
 		// return (y == 0 ? -1 : x / y);
-		// Si el divisor es 0 sale infinito, devolvemos error
+		// Si el divisor es 0 sale infinito, devolvemos
+		// error
 		System.out.println("Trabajo con Float");
 
 		if (y == 0)
@@ -72,7 +127,8 @@ public class Calculadora {
 		int min = Integer.MAX_VALUE;
 		// Recorremos todos los elementos del array
 		for (int i = 0; i < listaNum.length; i++) {
-			// Si un elemento es menor que nuestro minimo
+			// Si un elemento es menor que nuestro
+			// minimo
 			// es el nuevo minimo
 			if (listaNum[i] < min)
 				min = listaNum[i];
@@ -82,13 +138,58 @@ public class Calculadora {
 
 	}
 
+	/**
+	 * [2,3,1,5] 2, [3,1,5]-> 3, [1,5]->1 , 5
+	 * 
+	 * @param listaNum
+	 * @return
+	 */
+	public static int minR(int listaNum[]) {
+
+		// Si solo hay un número es el minimo por
+		// c@#~@€
+		if (listaNum.length == 1)
+			return listaNum[0];
+
+		// Separamos el primer número (de la izquierda)
+		// si hay mas de uno
+		int numIzq = listaNum[0];
+
+		int listaDerecha[] = new int[listaNum.length - 1];
+
+		// Copio todos los datos del array desde la
+		// posicion 1 hasta la final
+		for (int i = 1; i < listaNum.length; i++) {
+			// Vamos copiando los números de un array a
+			// otro
+			listaDerecha[i - 1] = listaNum[i];
+		}
+
+		// Si el número de la izquierda es menor que el
+		// menor del resto
+		// Devuelvo dicho número, en caso contrario
+		// devuelvuelvo el menor del resto
+		// Llamamos a la funcion recursivamente para
+		// sacar el minimo de la parte derecha
+		int minDer = minR(listaDerecha);
+
+		if (numIzq < minDer)
+			return numIzq;
+		else
+			return minDer;
+
+	}
+
 	public double areaCirculo(double radio) {
-		// Variable local con el mismo nombre que la global
-		// Por defecto utilizaria esta si no usamos this
+		// Variable local con el mismo nombre que la
+		// global
+		// Por defecto utilizaria esta si no usamos
+		// this
 		double PI = 3.15;
 		double area = 0;
 
-		// Utilizando this usamos la constante de la clase, no
+		// Utilizando this usamos la constante de la
+		// clase, no
 		// Nuestra variable local
 		area = this.PI * radio * radio;
 
