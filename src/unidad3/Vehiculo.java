@@ -24,6 +24,13 @@ public class Vehiculo {
 	private int velocidad;
 	private double cargaMax;
 
+	// Si declaramos protected un metodo o variable,
+	// solo se puede usuar dentro de
+	// la propia clase, y tambien sus clases hijas
+	protected int explotar() {
+		return -1;
+	}
+
 	public Vehiculo() {
 		super();
 		numRuedas = 4;

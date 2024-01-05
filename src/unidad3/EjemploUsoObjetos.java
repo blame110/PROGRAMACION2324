@@ -79,6 +79,10 @@ public class EjemploUsoObjetos {
 
 		System.out.println("El minimo es: " + Calculadora.minR(lista));
 
+		System.out.println("Se ha encontrado el número 13 en la posicion " + Calculadora.buscaNumero(lista, -134));
+
+		System.out.println("Se ha encontrado el número 13 en la posicion " + Calculadora.buscaNumeroR(lista, -134, 0));
+
 	}
 
 }

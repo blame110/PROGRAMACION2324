@@ -18,6 +18,8 @@ public class Persona {
 	 */
 	public Persona() {
 
+		// This sirve para llamar a los atributos de la
+		// clase
 		this.nombre = "Persona" + ((int) (Math.random() * 100));
 		this.edad = (int) (Math.random() * 82) + 18;
 		this.peso = (int) (Math.random() * 40) + 50;
