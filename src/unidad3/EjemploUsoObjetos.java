@@ -9,6 +9,8 @@ public class EjemploUsoObjetos {
 		int edad = 0;
 		String nombre = "";
 
+		// Para poder crear un objeto usamos new y el
+		// nombre de la clase
 		Persona miguel = new Persona();
 
 		Persona mario = new Persona();
@@ -19,6 +21,10 @@ public class EjemploUsoObjetos {
 
 		// Incrementamos la cantidad de personas
 		// miguel.numPersonas++;
+
+		miguel.setEdad(34);
+		miguel.direccion = "Calle paloma 34";
+		// miguel.morirse();
 
 		System.out.println("Numero de personas:" + Persona.numPersonas);
 
@@ -82,6 +88,8 @@ public class EjemploUsoObjetos {
 		System.out.println("Se ha encontrado el número 13 en la posicion " + Calculadora.buscaNumero(lista, -134));
 
 		System.out.println("Se ha encontrado el número 13 en la posicion " + Calculadora.buscaNumeroR(lista, -134, 0));
+
+		System.out.println("Miguel esta vivo?" + miguel.isVivo());
 
 	}
 

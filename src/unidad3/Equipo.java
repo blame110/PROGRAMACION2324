@@ -236,16 +236,26 @@ public class Equipo implements Comparable<Equipo> {
 		// TODO Auto-generated constructor stub
 		this.id = Integer.toString(this.numE);
 		this.nombre = "Equipo" + this.numE;
-		this.puntos = (int) (Math.random() * 30) + 12;
+		this.puntos = (int) (Math.random() * 50) + 22;
 		this.numGoles = (int) (Math.random() * 30) + 12;
 		this.numGolesRec = (int) (Math.random() * 30) + 12;
 		this.presupuesto = (int) (Math.random() * 30);
 		this.estadio = "estadio" + this.numE;
 
 		// Creamos 20 jugadores aleatorios
+
+		// Inicializamos el array de jugadores a 20
+		// posiciones
 		this.listaJugadores = new Jugador[20];
+
+		// Hacemos un bucle para recorrer todas las
+		// posiciones
+		// del array de jugadores
 		for (int i = 0; i < listaJugadores.length; i++) {
+			// Crea un jugador nuevo aleatorio
 			Jugador jugTem = new Jugador();
+			// Metemos el nuevo juegador creado en una
+			// posicion i del array de jugadores
 			listaJugadores[i] = jugTem;
 		}
 

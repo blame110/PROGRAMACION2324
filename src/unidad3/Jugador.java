@@ -95,7 +95,10 @@ public class Jugador {
 		this.id = Integer.toString(Jugador.numJ);
 		this.nombre = "Jugador" + Jugador.numJ;
 		this.posicion = (int) (Math.random() * 5);
-		this.numGoles = (int) (Math.random() * 25);
+		if (this.posicion == Jugador.DELANTERO)
+			this.numGoles = (int) (Math.random() * 25);
+		else
+			this.numGoles = (int) (Math.random() * 10);
 		this.edad = (int) (Math.random() * 30) + 18;
 		// TODO Auto-generated constructor stub
 	}

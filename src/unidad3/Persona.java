@@ -8,6 +8,7 @@ public class Persona {
 	private double peso;
 	private boolean vivo;
 	private int altura;
+	public String direccion;
 	public static int numPersonas = 0;
 
 	/**
