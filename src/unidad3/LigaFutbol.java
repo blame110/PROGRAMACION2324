@@ -180,7 +180,7 @@ public class LigaFutbol {
 			// this.listaEquipos[i].getPresupuesto()
 
 			// despues en otro bucle metemos los que no
-			// tienen 24 goles
+			// han marcado mas de 4 goles
 			// this.listaEquipos[i].getNumGoles()
 		}
 
