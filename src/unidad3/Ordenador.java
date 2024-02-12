@@ -30,7 +30,6 @@ public class Ordenador {
 	 * @return -1 si no esta correcto y 0 si esta
 	 *         correcto
 	 */
-	public int montaje() {
 
 	/*
 	 * 1. comprobar que estan todos, crearia booleanos
