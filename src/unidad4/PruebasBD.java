@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import unidad4.model.ClienteDO;
 import unidad4.model.ModelCliente;
 //Con este import podemos usar todas las clases del paquete utils
 import unidad4.utils.UtilsBD;
@@ -52,7 +53,17 @@ public class PruebasBD {
 			 */
 
 			// Modificacion
-			int numAff = stmt.executeUpdate("UPDATE CLIENTE SET EDAD=EDAD+1 WHERE SEXO='M'");
+			// int numAff = stmt.executeUpdate("UPDATE
+			// CLIENTE SET EDAD=EDAD+1 WHERE
+			// SEXO='M'");
+
+			int idCliente = 3;
+			ClienteDO cliente = new ClienteDO(idCliente, null, "Perlita", 19, ' ', null, "toitoto");
+
+			ClienteDO clienteLuismi = new ClienteDO(idCliente, "LuisMi", "Toscano", 19, 'M', "emailluis@gmail.com",
+					"toitoto");
+
+			int numAff = ModelCliente.updateCliente(con, cliente);
 
 			System.out.println("Se han modificado " + numAff + " columnas");
 
@@ -64,8 +75,11 @@ public class PruebasBD {
 			System.out.println("Se han borrado " + numAff + " columnas");
 
 			// Insercion de registros
-			numAff = stmt.executeUpdate(
-					"INSERT INTO cliente VALUES(1,'Patricia','bueno',61,'F','enim.mi.tempor@icloud.net','OFO48CRF5IB')");
+			// numAff = stmt.executeUpdate(
+			// "INSERT INTO cliente
+			// VALUES(1,'Patricia','bueno',61,'F','enim.mi.tempor@icloud.net','OFO48CRF5IB')");
+
+			numAff = ModelCliente.insertCliente(con, clienteLuismi);
 
 			System.out.println("Se han insertado " + numAff + " columnas");
 
