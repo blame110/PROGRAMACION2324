@@ -1,6 +1,7 @@
 package unidad4.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -40,7 +41,45 @@ public class ModelCliente {
 
 	}
 
-	public static int removeCliente(Connection con, int idCliente) {
+	/**
+	 * Recibe la conexion y un idCliente y devuelve un
+	 * resulset con los datos de ese id
+	 * 
+	 * @param con
+	 * @param idCliente
+	 * @return
+	 */
+	public static ResultSet getCliente(Connection con, int idCliente) {
+
+		try {
+
+			// Creamos la sentencia a ejecutar
+			String query = "SELECT * FROM CLIENTE WHERE idCliente=?";
+
+			// Primer paso creo un statement
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			// Asignamos el valor del idCliente a la
+			// interrogacion
+			pstmt.setInt(1, idCliente);
+
+			// Ejecutamos la query y los resultados
+			// quedan en el resulset
+			ResultSet rs = pstmt.executeQuery();
+
+			// devolvemos el resulset
+			return rs;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+
+		}
+
+	}
+
+	public static int removeCliente(Connection con, int idCliente) throws SQLException {
 
 		try {
 			// Primer paso creo un statement
@@ -56,6 +95,7 @@ public class ModelCliente {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			con.rollback();
 			return ERROR_SQL_BORRAR;
 
 		}
@@ -77,6 +117,7 @@ public class ModelCliente {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
 			return ERROR_SQL_BORRAR;
 
 		}
@@ -97,18 +138,19 @@ public class ModelCliente {
 
 			// Creamos la query con los datos del
 			// cliente
-			String query = "INSERT INTO cliente (nombre, apellidos, edad, sexo, email,password) VALUES('"
-					+ cliente.getNombre();
-			query += "','" + cliente.getApellidos();
-			query += "'," + cliente.getEdad();
-			query += ",'" + cliente.getSexo();
-			query += "','" + cliente.getEmail();
-			query += "','" + cliente.getPassword() + "')";
+			String query = "INSERT INTO cliente (nombre, apellidos, edad, sexo, email,password) VALUES(?,?,?,?,?,?)";
 
-			Statement stmt = con.createStatement();
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, cliente.getNombre());
+			pstmt.setString(2, cliente.getApellidos());
+			pstmt.setInt(3, cliente.getEdad());
+			pstmt.setString(4, String.valueOf(cliente.getSexo()));
+			pstmt.setString(5, cliente.getEmail());
+			pstmt.setString(6, cliente.getPassword());
 
 			// Ejecutamos la query
-			numAff = stmt.executeUpdate(query);
+			numAff = pstmt.executeUpdate();
 
 			return numAff;
 
@@ -130,7 +172,6 @@ public class ModelCliente {
 	 */
 	public static int updateCliente(Connection con, ClienteDO cliente) {
 		try {
-			Statement stmt = con.createStatement();
 
 			boolean campoPrevio = false;
 			int numAff = -1;
@@ -139,7 +180,7 @@ public class ModelCliente {
 			// Si los campos no son nulos, los vamos
 			// añadiendo a la sentencia
 			if (cliente.getNombre() != null) {
-				query = query + "nombre = '" + cliente.getNombre() + "'";
+				query = query + "nombre = ?";
 				campoPrevio = true;
 			}
 
@@ -147,7 +188,7 @@ public class ModelCliente {
 				if (campoPrevio) {
 					query = query + ", ";
 				}
-				query = query + "apellidos = '" + cliente.getApellidos() + "'";
+				query = query + "apellidos = ?";
 				campoPrevio = true;
 			}
 
@@ -155,7 +196,7 @@ public class ModelCliente {
 				if (campoPrevio) {
 					query = query + ", ";
 				}
-				query = query + "edad = " + cliente.getEdad();
+				query = query + "edad = ?";
 				campoPrevio = true;
 			}
 
@@ -163,7 +204,7 @@ public class ModelCliente {
 				if (campoPrevio) {
 					query = query + ", ";
 				}
-				query = query + "sexo = '" + cliente.getSexo() + "'";
+				query = query + "sexo = ?";
 				campoPrevio = true;
 			}
 
@@ -171,7 +212,7 @@ public class ModelCliente {
 				if (campoPrevio) {
 					query = query + ", ";
 				}
-				query = query + "email = '" + cliente.getEmail() + "'";
+				query = query + "email = ?";
 				campoPrevio = true;
 			}
 
@@ -179,14 +220,81 @@ public class ModelCliente {
 				if (campoPrevio) {
 					query = query + ", ";
 				}
-				query = query + "password = '" + cliente.getPassword() + "'";
+				query = query + "password = ?";
 			}
 
-			query = query + " WHERE idCliente = " + cliente.getIdCliente();
+			query = query + " WHERE idCliente = ?";
+
+			// Generamos el preparedstatement con la
+			// query
+			PreparedStatement pstmt = con.prepareStatement(query);
+
+			// Enlazamos los datos a las ? del prepared
+			// statement
+
+			int posInterrogacion = 1;
+
+			// Si los campos no son nulos, los vamos
+			// añadiendo a la sentencia
+			if (cliente.getNombre() != null) {
+
+				pstmt.setString(posInterrogacion, cliente.getNombre());
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+			}
+
+			if (cliente.getApellidos() != null) {
+				pstmt.setString(posInterrogacion, cliente.getApellidos());
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+
+			}
+
+			if (cliente.getEdad() != -1) {
+				pstmt.setInt(posInterrogacion, cliente.getEdad());
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+
+			}
+
+			if (cliente.getSexo() != ' ') {
+				pstmt.setString(posInterrogacion, String.valueOf(cliente.getSexo()));
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+
+			}
+
+			if (cliente.getEmail() != null) {
+				pstmt.setString(posInterrogacion, cliente.getEmail());
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+			}
+
+			if (cliente.getPassword() != null) {
+				pstmt.setString(posInterrogacion, cliente.getPassword());
+				// Incrementamos la posicion de la
+				// interrogacion para
+				// El siguiente posible campo
+				posInterrogacion++;
+			}
+
+			pstmt.setInt(posInterrogacion, cliente.getIdCliente());
+
 			if (campoPrevio) {
 
 				System.out.println(query);
-				numAff = stmt.executeUpdate(query);
+
+				numAff = pstmt.executeUpdate();
 
 			}
 
