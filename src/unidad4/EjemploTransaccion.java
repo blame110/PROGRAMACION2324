@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import unidad4.model.ClienteDO;
-import unidad4.model.ModelCliente;
+import unidad4.model.ClienteDAO;
 import unidad4.utils.UtilsBD;
 
 public class EjemploTransaccion {
@@ -25,16 +25,16 @@ public class EjemploTransaccion {
 
 			ClienteDO juan = new ClienteDO(-1, "juan", "perez", 23, 'M', "email@email2.com", "passswuord");
 
-			ModelCliente.insertCliente(con, juan);
+			ClienteDAO.insertCliente(con, juan);
 
 			// Modificamos los datos de juan
 			juan.setIdCliente(102);
 			juan.setApellidos("Picapiedra");
 			juan.setEdad(45);
 
-			ModelCliente.updateCliente(con, juan);
+			ClienteDAO.updateCliente(con, juan);
 
-			ModelCliente.removeCliente(con, 67);
+			ClienteDAO.removeCliente(con, 67);
 
 			// En el momento que haga commit se hacen
 			// permanentes

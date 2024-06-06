@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ModelCliente {
+public class ClienteDAO {
 
 	public static final int ERROR_SQL_BORRAR = -1;
 
@@ -79,15 +79,20 @@ public class ModelCliente {
 
 	}
 
-	public static int removeCliente(Connection con, int idCliente) throws SQLException {
+	public static int removeCliente(Connection con, int idCliente) {
 
 		try {
-			// Primer paso creo un statement
-			Statement stmt = con.createStatement();
 
-			// Ejemplo de borrado
-			int numAff = stmt.executeUpdate("DELETE FROM CLIENTE WHERE idCliente=" + idCliente);
+			String query = "DELETE FROM CLIENTE WHERE idCliente = ?";
 
+			// Creamos el statement con la query
+			PreparedStatement pStmt = con.prepareStatement(query);
+
+			// Asignamos el valor a la interrogacion
+			pStmt.setInt(1, idCliente);
+
+			// Ejecutamos la sentencia
+			int numAff = pStmt.executeUpdate();
 			// Devolvemos el numero de columnas
 			// afectadas
 			return numAff;
@@ -95,7 +100,7 @@ public class ModelCliente {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			con.rollback();
+
 			return ERROR_SQL_BORRAR;
 
 		}
@@ -108,7 +113,7 @@ public class ModelCliente {
 			Statement stmt = con.createStatement();
 
 			// Ejemplo de borrado
-			int numAff = stmt.executeUpdate("DELETE FROM CLIENTE WHERE email=" + email);
+			int numAff = stmt.executeUpdate("DELETE FROM CLIENTE WHERE email=?" + email);
 
 			// Devolvemos el numero de columnas
 			// afectadas
@@ -136,18 +141,31 @@ public class ModelCliente {
 
 			int numAff = ERROR_SQL_BORRAR;
 
-			// Creamos la query con los datos del
-			// cliente
-			String query = "INSERT INTO cliente (nombre, apellidos, edad, sexo, email,password) VALUES(?,?,?,?,?,?)";
+			PreparedStatement pstmt;
+			String query = "";
+			int pos = 1;
 
-			PreparedStatement pstmt = con.prepareStatement(query);
+			if (cliente.getIdCliente() == -1) {
+				// Creamos la query con los datos del
+				// cliente
+				query = "INSERT INTO cliente (nombre, apellidos, edad, sexo, email,password) VALUES(?,?,?,?,?,?)";
+				pstmt = con.prepareStatement(query);
+			} else
 
-			pstmt.setString(1, cliente.getNombre());
-			pstmt.setString(2, cliente.getApellidos());
-			pstmt.setInt(3, cliente.getEdad());
-			pstmt.setString(4, String.valueOf(cliente.getSexo()));
-			pstmt.setString(5, cliente.getEmail());
-			pstmt.setString(6, cliente.getPassword());
+			{
+				// Si tiene el id hay que ponerlo en la
+				// primera posicion
+				query = "INSERT INTO cliente (idCliente,nombre, apellidos, edad, sexo, email,password) VALUES(?,?,?,?,?,?,?)";
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(pos++, cliente.getIdCliente());
+			}
+
+			pstmt.setString(pos++, cliente.getNombre());
+			pstmt.setString(pos++, cliente.getApellidos());
+			pstmt.setInt(pos++, cliente.getEdad());
+			pstmt.setString(pos++, String.valueOf(cliente.getSexo()));
+			pstmt.setString(pos++, cliente.getEmail());
+			pstmt.setString(pos++, cliente.getPassword());
 
 			// Ejecutamos la query
 			numAff = pstmt.executeUpdate();

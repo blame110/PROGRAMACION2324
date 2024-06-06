@@ -10,6 +10,11 @@ public class ClienteDO {
 	private String email;
 	private String password;
 
+	public ClienteDO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 * @param idCliente

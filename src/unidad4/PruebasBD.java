@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import unidad4.model.ClienteDAO;
 import unidad4.model.ClienteDO;
-import unidad4.model.ModelCliente;
 import unidad4.model.ModelFactura;
 //Con este import podemos usar todas las clases del paquete utils
 import unidad4.utils.UtilsBD;
@@ -30,7 +30,9 @@ public class PruebasBD {
 			// ResultSet rs = stmt.executeQuery("SELECT
 			// * FROM CLIENTE");
 
-			ResultSet rs = ModelCliente.getClientes(con);
+			ResultSet rs = ClienteDAO.getClientes(con);
+
+			ClienteDO cliente = new ClienteDO();
 
 			// Getfetchsize
 			System.out.println("Hay " + rs.getFetchSize() + " registros");
@@ -38,6 +40,8 @@ public class PruebasBD {
 			// Recorremos todos los elementos de la
 			// query resultante
 			while (rs.next()) {
+				cliente.setApellidos(rs.getString("apellidos"));
+
 				System.out.print("Nombre: " + rs.getString("nombre"));
 				System.out.print(" Edad: " + rs.getInt("edad"));
 				System.out.println(" Sexo: " + rs.getString(5));
@@ -59,7 +63,7 @@ public class PruebasBD {
 			// SEXO='M'");
 
 			int idCliente = 3;
-			ClienteDO cliente = new ClienteDO(idCliente, "jorge", "Perlitas56", 119, ' ', null, "toitoto");
+			ClienteDO cliente3 = new ClienteDO(idCliente, "jorge", "Perlitas56", 119, ' ', null, "toitoto");
 
 			ClienteDO clienteLuismi = new ClienteDO(idCliente, "LuisMi", "Toscano", 19, 'M', "emailluis@gmail.com",
 					"toitoto");
@@ -67,7 +71,7 @@ public class PruebasBD {
 			ClienteDO clienteJuanma = new ClienteDO(idCliente, "Juanmanuel", "Toscano", 13, 'M',
 					"emaildfaluis@gmail.com", "toitoto");
 
-			int numAff = ModelCliente.updateCliente(con, cliente);
+			int numAff = ClienteDAO.updateCliente(con, cliente);
 
 			System.out.println("Se han modificado " + numAff + " columnas");
 
@@ -84,7 +88,7 @@ public class PruebasBD {
 			// "INSERT INTO cliente
 			// VALUES(1,'Patricia','bueno',61,'F','enim.mi.tempor@icloud.net','OFO48CRF5IB')");
 
-			numAff = ModelCliente.insertCliente(con, clienteJuanma);
+			numAff = ClienteDAO.insertCliente(con, clienteJuanma);
 
 			System.out.println("Se han insertado " + numAff + " columnas");
 
@@ -99,7 +103,7 @@ public class PruebasBD {
 				System.out.println(" Cif: " + rs.getString(2));
 			}
 
-			rs = ModelCliente.getCliente(con, 18);
+			rs = ClienteDAO.getCliente(con, 18);
 			// Nos posicionamos en el primer registro
 			rs.next();
 			// Sacamos los datos del cliente 18
